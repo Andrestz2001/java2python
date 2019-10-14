@@ -1,0 +1,146 @@
+import java.util.*;
+public class TicTacToe {
+	public static Scanner sc=new Scanner(System.in);
+	public static Scanner leer=new Scanner(System.in);
+	public static void main(String[] args) {
+
+	char[][] x=new char[3][3];
+	int i=0,c,f,con,rej=0,lin,g=0;
+	int[][] save=new int[9][2];
+	for(i=0;i<9;i++)
+	{
+		save[i][0]=10;
+		save[i][1]=10;
+	}
+	for(i=0;i<9;i++)
+	{
+		presentar(x);
+		if(i==0)
+		{
+			while(save[0][0]==10 && save[0][1]==10)
+			{
+				System.out.println("Introduce tus coordenadas");
+				System.out.print("Columna: ");
+				c=sc.nextInt();
+				System.out.print("Fila: ");
+				f=sc.nextInt();
+				if(c<3 && f<3)
+				{
+					save[0][0]=c;
+					save[0][1]=f;
+					if(i%2==0)
+					{
+						x[c][f]='X';
+					}
+					else
+					{
+						x[c][f]='O';
+					}
+				}
+				else
+				{
+					System.out.println("Esa posicion ya está ocupada\n");
+					presentar(x);
+				}
+			}
+		}
+		else
+		{
+			rej=1;
+			while(rej!=0)
+			{
+				System.out.println("Introduce tus coordenadas");
+				System.out.print("Fila: ");
+				c=sc.nextInt();
+				System.out.print("Columna: ");
+				f=sc.nextInt();
+				if(c<3 && f<3)
+				{
+					rej=0;
+					for(con=0;con<9;con++)
+					{
+						if(save[con][0]==c && save[con][1]==f)
+						{
+							rej++;
+						}
+					}
+					if(rej==0)
+					{
+						save[i][0]=c;
+						save[i][1]=f;
+						if(i%2==0)
+						{
+							x[c][f]='X';
+						}
+						else
+						{
+							x[c][f]='O';
+						}
+					}
+					else
+					{
+						System.out.println("Esa posicion ya está ocupada\n");
+						presentar(x);
+					}
+				}
+				else
+				{
+					System.out.println("Esa posicion ya está ocupada\n");
+					presentar(x);
+				}
+			}
+		}
+
+		for(lin=0;lin<3;lin++)
+		{
+			if(x[lin][0]=='X' && x[lin][1]=='X' && x[lin][2]=='X' || x[0][lin]=='X' && x[1][lin]=='X' && x[2][lin]=='X')
+			{
+				presentar(x);
+				System.out.println("Ganó jugador 1");
+				i=10;
+				g=1;
+			}
+			if(x[lin][0]=='O' && x[lin][1]=='O' && x[lin][2]=='O' || x[0][lin]=='O' && x[1][lin]=='O' && x[2][lin]=='O')
+			{
+				presentar(x);
+				System.out.println("Ganó jugador 2");
+				i=10;
+				g=1;
+			}
+		}
+		for(lin=0;lin<3;lin=lin+2)
+		{
+			if(x[lin][0]=='X' && x[1][1]=='X' && x[2-lin][2]=='X')
+			{
+				presentar(x);
+				System.out.println("Ganó jugador 1");
+				i=10;
+				g=1;
+			}
+			if(x[lin][0]=='O' && x[1][1]=='O' && x[2-lin][2]=='O')
+			{
+				presentar(x);
+				System.out.println("Ganó jugador 2");
+				g=1;
+				i=10;
+			}
+		}
+
+	}
+	if(g==0)
+	{
+		presentar(x);
+	}
+System.out.print("Fin del Juego");
+	}
+public static void presentar (char[][] x)
+{
+	System.out.println("-------------");
+	System.out.println("| "+x[0][0]+" | "+x[0][1]+" | "+x[0][2]+" |");
+	System.out.println("-------------");
+	System.out.println("| "+x[1][0]+" | "+x[1][1]+" | "+x[1][2]+" |");
+	System.out.println("-------------");
+	System.out.println("| "+x[2][0]+" | "+x[2][1]+" | "+x[2][2]+" |");
+	System.out.println("-------------");
+}
+}
